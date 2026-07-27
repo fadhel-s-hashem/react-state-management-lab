@@ -39,14 +39,18 @@ const App = () => {
   const [availableBalance, setAvailableBalance] = useState(100)
   const [availableItems, setAvailableItems] = useState(initialState)
   const [shoppingCart, setShoppingCart] = useState([])
+  const [warningMessage, setWarningMessage ] = useState('')
 
   const handleAddToCart = (AddItem) => {
     if (availableBalance > AddItem.price){
      const result = availableItems.filter((item) =>{
       return item !==  AddItem})
+
      setAvailableItems(result)
      setShoppingCart([...shoppingCart,AddItem])
      setAvailableBalance(availableBalance - AddItem.price) 
+     } else {
+           setWarningMessage("Insufficient funds. Your balance is too low to purchase this item")
      }
   }
 
@@ -54,9 +58,9 @@ const App = () => {
   return (
 
     <div>
-
       <h1>Zaids Closet</h1>
       <h2>Your Balance: {availableBalance} $</h2>
+      <p>{warningMessage}</p>
       <h2>Available Items</h2>
       <br />
       {availableItems.map((availableItem) => (
