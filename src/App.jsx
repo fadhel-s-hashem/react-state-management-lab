@@ -49,10 +49,20 @@ const App = () => {
      setAvailableItems(result)
      setShoppingCart([...shoppingCart,AddItem])
      setAvailableBalance(availableBalance - AddItem.price) 
-     } else {
+     } else if(availableBalance < AddItem.price) {
            setWarningMessage("Insufficient funds. Your balance is too low to purchase this item")
      }
   }
+
+ const handleRemoveFromShoppingCart = (removeItem) => {
+  const result = shoppingCart.filter((item) =>{
+      return item !==  removeItem})
+
+      setShoppingCart(result)
+      setAvailableItems([...availableItems,removeItem])
+      setAvailableBalance(availableBalance + removeItem.price)
+
+ }
 
 
   return (
@@ -60,15 +70,13 @@ const App = () => {
     <div>
       <h1>Zaids Closet</h1>
       <h2>Your Balance: {availableBalance} $</h2>
-      <p>{warningMessage}</p>
+      <p className='warningMessage'>{warningMessage}</p>
       <h2>Available Items</h2>
       <br />
       {availableItems.map((availableItem) => (
         <>
           <p>{availableItem.name} : {availableItem.price} $</p>
 
-         
-          
           <button onClick={() => {handleAddToCart(availableItem)}}>Add to Cart</button>
 
         </>
@@ -76,8 +84,11 @@ const App = () => {
 <hr />
        <h2>Shopping Cart</h2>
           {shoppingCart.map((cartItem) => (
-            
+            <>
               <p>{cartItem.name} : {cartItem.price}$ </p>
+              <button onClick={() => {handleRemoveFromShoppingCart(cartItem)}}>remove from Cart</button>
+
+              </>
             
           ))}
       
