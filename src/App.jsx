@@ -36,15 +36,17 @@ const App = () => {
     }
   ]
 
-  const availableBalance = 100
+  const [availableBalance, setAvailableBalance] = useState(100)
   const [availableItems, setAvailableItems] = useState(initialState)
   const [shoppingCart, setShoppingCart] = useState([])
 
   const handleAddToCart = (AddItem) => {
+   
      const result = availableItems.filter((item) =>{
       return item !==  AddItem})
      setAvailableItems(result)
      setShoppingCart([...shoppingCart,AddItem])
+     setAvailableBalance(availableBalance - AddItem.price) 
   }
 
 
@@ -53,7 +55,7 @@ const App = () => {
     <div>
 
       <h1>Zaids Closet</h1>
-      <h2>Your Balance: {availableBalance} </h2>
+      <h2>Your Balance: {availableBalance} $</h2>
       <h2>Available Items</h2>
       <br />
       {availableItems.map((availableItem) => (
