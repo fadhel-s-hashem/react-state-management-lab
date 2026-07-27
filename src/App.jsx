@@ -40,7 +40,11 @@ const App = () => {
   const [availableItems, setAvailableItems] = useState(initialState)
   const [shoppingCart, setShoppingCart] = useState([])
 
-  const handleAddToCart = () => {}
+  const handleAddToCart = (clickedCart) => {
+     const result = availableItems.filter((addItem) => addItem !==  clickedCart)
+     availableItems(result)
+
+  }
 
 
   return (
@@ -53,7 +57,7 @@ const App = () => {
       <br />
       {availableItems.map((availableItem) => (
         <>
-          <p>{availableItem.name} : {availableItem.price}</p>
+          <p>{availableItem.name} : {availableItem.price} $</p>
 
           <h2>Shopping Cart</h2>
           {shoppingCart.map((cartItem) => (
@@ -62,7 +66,7 @@ const App = () => {
             
           ))}
           
-          <button>Add to Cart</button>
+          <button onClick={() => {handleAddToCart(availableItem)}}>Add to Cart</button>
 
         </>
       ))}
