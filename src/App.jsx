@@ -41,12 +41,13 @@ const App = () => {
   const [shoppingCart, setShoppingCart] = useState([])
 
   const handleAddToCart = (AddItem) => {
-   
+    if (availableBalance > AddItem.price){
      const result = availableItems.filter((item) =>{
       return item !==  AddItem})
      setAvailableItems(result)
      setShoppingCart([...shoppingCart,AddItem])
      setAvailableBalance(availableBalance - AddItem.price) 
+     }
   }
 
 
